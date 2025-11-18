@@ -1,0 +1,26 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="VulnerableLibrariesLocal" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="isIgnoringEnabled" value="true" />
+      <option name="ignoredModules">
+        <list>
+          <option value="tasks-backend" />
+          <option value="tasks-backend" />
+        </list>
+      </option>
+      <option name="ignoredPackages">
+        <list>
+          <option value="org.dom4j:dom4j:2.1.1" />
+          <option value="net.minidev:json-smart:2.5.1" />
+        </list>
+      </option>
+      <option name="ignoredReasons">
+        <list>
+          <option value="Not exploitable" />
+          <option value="Not exploitable" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>
