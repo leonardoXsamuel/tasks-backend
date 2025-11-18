@@ -17,14 +17,24 @@ public class TaskController {
         this.taskService = taskService;
     }
 
+    @GetMapping("testando")
+    public String getTeste() {
+        return "rota funcionando perfeitamente.";
+    }
+
     @GetMapping
     public List<Task> getAllTasks() {
         return taskService.getAllTasks();
     }
 
     @GetMapping("/id/{id}")
-    public Optional<Task> getTaskById(@Valid @RequestParam Long id) {
+    public Optional<Task> getTaskById(@Valid @PathVariable Long id) {
         return taskService.getTaskById(id);
+    }
+
+    @GetMapping("/status")
+    public List<Task> getTaskByStatus(@Valid @RequestParam Task.Status status) {
+        return taskService.getTaskByStatus(status);
     }
 
     @PostMapping

@@ -35,6 +35,15 @@ public class TaskService {
         return taskRepo.findById(id);
     }
 
+    public List<Task> getTaskByStatus(Task.Status status) {
+
+        if (!taskRepo.existsByStatus(status)) {
+            throw new TaskNotFoundException();
+        }
+
+        return taskRepo.findByStatus(status);
+    }
+
     public List<Task> getAllTasks() {
 
         if (taskRepo.findAll().isEmpty()) {

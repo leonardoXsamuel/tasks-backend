@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(TaskNotFoundException.class)
-    public ResponseEntity<TaskNotFoundException> HandlerTaskNotFoundException(TaskNotFoundException ex, HttpServletRequest hsr) {
+    public ResponseEntity<ErrorJsonReturn> HandlerTaskNotFoundException(TaskNotFoundException ex, HttpServletRequest hsr) {
         ErrorJsonReturn errorJsonReturn = new ErrorJsonReturn(
                 HttpStatus.NOT_FOUND,
                 HttpStatus.NOT_FOUND.getReasonPhrase(),
@@ -22,7 +22,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 ex.getMessage(),
                 hsr.getRequestURI());
 
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorJsonReturn);
     }
 
 }
