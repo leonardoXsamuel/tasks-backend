@@ -1,17 +1,19 @@
 package br.ce.wcaquino.taskbackend.model;
 
+import br.ce.wcaquino.taskbackend.dto.TaskDTO;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.BeanUtils;
 
 import java.time.LocalDate;
 
 @Getter
 @Setter
-@Entity
+@Entity(name = "tasks_table")
 public class Task {
 
     public Task(String nome, LocalDate data, String descricao, Status status) {
@@ -19,9 +21,14 @@ public class Task {
         this.data = data;
         this.descricao = descricao;
         this.status = status;
+
     }
 
     public Task() {
+    }
+
+    public Task(TaskDTO taskDTO){
+        BeanUtils.copyProperties(taskDTO, this);
     }
 
     @Id

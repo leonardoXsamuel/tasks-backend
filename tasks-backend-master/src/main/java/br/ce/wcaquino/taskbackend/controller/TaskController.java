@@ -17,11 +17,6 @@ public class TaskController {
         this.taskService = taskService;
     }
 
-    @GetMapping("testando")
-    public String getTeste() {
-        return "rota funcionando perfeitamente.";
-    }
-
     @GetMapping
     public List<Task> getAllTasks() {
         return taskService.getAllTasks();
