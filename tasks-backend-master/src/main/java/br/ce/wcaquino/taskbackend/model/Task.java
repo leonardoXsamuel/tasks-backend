@@ -1,34 +1,29 @@
 package br.ce.wcaquino.taskbackend.model;
 
-import br.ce.wcaquino.taskbackend.dto.TaskDTO;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.beans.BeanUtils;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @Entity(name = "tasks_table")
 public class Task {
 
-    public Task(String nome, LocalDate data, String descricao, Status status) {
+    public Task(String nome, LocalDate datadataConclusa, String descricao, Status status) {
         this.nome = nome;
-        this.data = data;
+        this.dataConclusao = dataConclusao;
         this.descricao = descricao;
         this.status = status;
-
+        this.dataCriacao = LocalDateTime.now();
     }
 
     public Task() {
-    }
-
-    public Task(TaskDTO taskDTO){
-        BeanUtils.copyProperties(taskDTO, this);
     }
 
     @Id
@@ -41,7 +36,10 @@ public class Task {
 
     @Column(nullable = false)
     @FutureOrPresent(message = "A data da tarefa deve ser no presente ou no futuro.")
-    private LocalDate data;
+    private LocalDateTime dataConclusao;
+
+    @Column(nullable = false)
+    private LocalDateTime dataCriacao = LocalDateTime.now();
 
     @Column(nullable = false)
     @NotBlank(message = "Descrição da tarefa deve ser preenchida.")

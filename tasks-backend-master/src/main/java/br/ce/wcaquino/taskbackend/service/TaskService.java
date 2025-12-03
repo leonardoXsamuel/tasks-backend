@@ -1,13 +1,15 @@
 package br.ce.wcaquino.taskbackend.service;
 
 import br.ce.wcaquino.taskbackend.advice.exceptions.TaskNotFoundException;
+import br.ce.wcaquino.taskbackend.dto.TaskCreateDTO;
+import br.ce.wcaquino.taskbackend.dto.TaskResponseDTO;
 import br.ce.wcaquino.taskbackend.model.Task;
 import br.ce.wcaquino.taskbackend.repo.TaskRepo;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+
 
 @Service
 public class TaskService {
@@ -18,51 +20,83 @@ public class TaskService {
         this.taskRepo = taskRepo;
     }
 
-    public Task createTask(Task task) {
-        return taskRepo.save(task);
+    public TaskResponseDTO createTask(TaskCreateDTO dto) {
+
+        Task task = new Task();
+        task.setNome(dto.nome());
+        task.setStatus(dto.status());
+        task.setDataConclusao(dto.dataConclusao());
+        task.setDescricao(dto.descricao());
+
+        Task taskSalva = taskRepo.save(task);
+        return new TaskResponseDTO(taskSalva);
     }
 
-    public List<Task> createTaskList(List<Task> task) {
-        return taskRepo.saveAll(task);
+    public List<Task> createTaskList(List<TaskCreateDTO> listDTOs) {
+
+        List<Task> tasks = listDTOs.stream().map(dto -> {
+            Task t = new Task();
+            t.setDataConclusao(dto.dataConclusao());
+            t.setStatus(dto.status());
+            t.setDescricao(dto.descricao());
+            t.setNome(dto.nome());
+            return t;
+        }).toList();
+
+        return taskRepo.saveAll(tasks);
     }
 
-    public Optional<Task> getTaskById(Long id) {
+    public TaskResponseDTO getTaskById(Long id) {
+        Task task = taskRepo.findById(id)
+                .orElseThrow(TaskNotFoundException::new);
 
-        if (!taskRepo.existsById(id)) {
-            throw new TaskNotFoundException();
+        return new TaskResponseDTO(task);
+    }
+
+    public List<TaskResponseDTO> getTaskByStatus(Task.Status status) {
+
+        List<Task> tasksList = taskRepo.findAll();
+
+        List<Task> tasksFiltradas = tasksList.stream()
+                .filter(task -> task.getStatus() == status)
+                .toList();
+
+        if (tasksFiltradas.isEmpty()) {
+            throw new TaskNotFoundException("Não existem TASKS com esse STATUS.");
         }
 
-        return taskRepo.findById(id);
+        return tasksFiltradas
+                .stream()
+                .map(TaskResponseDTO::new)
+                .toList();
     }
 
-    public List<Task> getTaskByStatus(Task.Status status) {
+    public List<TaskResponseDTO> getAllTasks() {
 
-        if (!taskRepo.existsByStatus(status)) {
-            throw new TaskNotFoundException();
+        List<Task> listaTasks = taskRepo.findAll();
+
+        if (listaTasks.isEmpty()) {
+            throw new TaskNotFoundException("Não existem tarefas registradas.");
         }
 
-        return taskRepo.findByStatus(status);
-    }
-
-    public List<Task> getAllTasks() {
-
-        if (taskRepo.findAll().isEmpty()) {
-            throw new TaskNotFoundException("Não existem tarefas registradas no banco de dados.");
-        }
-        return taskRepo.findAll();
+        return listaTasks.stream()
+                .map(TaskResponseDTO::new).toList();
     }
 
     @Transactional
-    public Task putTaskById(Long id, Task newTask) {
+    public TaskResponseDTO putTaskById(Long id, TaskCreateDTO dto) {
 
-        Task oldTask = taskRepo.findById(id)
+        Task oldTask = taskRepo.findById(id).map(t -> {
+                    t.setDataConclusao(dto.dataConclusao());
+                    t.setStatus(dto.status());
+                    t.setDescricao(dto.descricao());
+                    t.setNome(dto.nome());
+                    return t;
+                })
                 .orElseThrow(() -> (new TaskNotFoundException("tarefa não localizada.")));
 
-        oldTask.setNome(newTask.getNome());
-        oldTask.setDescricao(newTask.getDescricao());
-        oldTask.setData(newTask.getData());
-
-        return taskRepo.save(oldTask);
+        Task taskSalva = taskRepo.save(oldTask);
+        return new TaskResponseDTO(taskSalva);
     }
 
     @Transactional

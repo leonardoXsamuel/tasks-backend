@@ -3,16 +3,15 @@ package br.ce.wcaquino.taskbackend.dto;
 import br.ce.wcaquino.taskbackend.model.Task;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.beans.BeanUtils;
-
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public record TaskResponseDTO(Long id, String nome, LocalDate data, String descricao,
+public record TaskResponseDTO(Long id, String nome, LocalDateTime dataCriacao, LocalDateTime dataConclusao, String descricao,
                       br.ce.wcaquino.taskbackend.model.Task.Status status) {
 
     public TaskResponseDTO(Task task) {
-        this(task.getId(), task.getNome(), task.getData(), task.getDescricao(), task.getStatus());
+        this(task.getId(), task.getNome(), task.getDataCriacao(), task.getDataConclusao(), task.getDescricao(), task.getStatus());
     }
+
 }
