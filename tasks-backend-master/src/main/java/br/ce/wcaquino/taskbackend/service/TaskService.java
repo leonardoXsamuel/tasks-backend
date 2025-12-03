@@ -3,6 +3,8 @@ package br.ce.wcaquino.taskbackend.service;
 import br.ce.wcaquino.taskbackend.advice.exceptions.TaskNotFoundException;
 import br.ce.wcaquino.taskbackend.dto.TaskCreateDTO;
 import br.ce.wcaquino.taskbackend.dto.TaskResponseDTO;
+import br.ce.wcaquino.taskbackend.dto.TaskUpdateDTO;
+import br.ce.wcaquino.taskbackend.model.Status;
 import br.ce.wcaquino.taskbackend.model.Task;
 import br.ce.wcaquino.taskbackend.repo.TaskRepo;
 import jakarta.transaction.Transactional;
@@ -32,7 +34,7 @@ public class TaskService {
         return new TaskResponseDTO(taskSalva);
     }
 
-    public List<Task> createTaskList(List<TaskCreateDTO> listDTOs) {
+    public List<TaskResponseDTO> createTaskList(List<TaskCreateDTO> listDTOs) {
 
         List<Task> tasks = listDTOs.stream().map(dto -> {
             Task t = new Task();
@@ -43,7 +45,11 @@ public class TaskService {
             return t;
         }).toList();
 
-        return taskRepo.saveAll(tasks);
+        List<Task> taskList = taskRepo.saveAll(tasks);
+
+        return taskList.stream()
+                .map(TaskResponseDTO::new)
+                .toList();
     }
 
     public TaskResponseDTO getTaskById(Long id) {
@@ -53,7 +59,7 @@ public class TaskService {
         return new TaskResponseDTO(task);
     }
 
-    public List<TaskResponseDTO> getTaskByStatus(Task.Status status) {
+    public List<TaskResponseDTO> getTaskByStatus(Status status) {
 
         List<Task> tasksList = taskRepo.findAll();
 
@@ -84,7 +90,7 @@ public class TaskService {
     }
 
     @Transactional
-    public TaskResponseDTO putTaskById(Long id, TaskCreateDTO dto) {
+    public TaskResponseDTO putTaskById(Long id, TaskUpdateDTO dto) {
 
         Task oldTask = taskRepo.findById(id).map(t -> {
                     t.setDataConclusao(dto.dataConclusao());

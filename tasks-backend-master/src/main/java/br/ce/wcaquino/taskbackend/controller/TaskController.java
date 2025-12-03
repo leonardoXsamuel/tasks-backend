@@ -2,6 +2,8 @@ package br.ce.wcaquino.taskbackend.controller;
 import java.util.List;
 import br.ce.wcaquino.taskbackend.dto.TaskCreateDTO;
 import br.ce.wcaquino.taskbackend.dto.TaskResponseDTO;
+import br.ce.wcaquino.taskbackend.dto.TaskUpdateDTO;
+import br.ce.wcaquino.taskbackend.model.Status;
 import br.ce.wcaquino.taskbackend.service.TaskService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
@@ -17,10 +19,10 @@ public class TaskController {
         this.taskService = taskService;
     }
 
-    @GetMapping
-    public List<TaskResponseDTO> getAllTasks() {
-        return taskService.getAllTasks();
-    }
+        @GetMapping
+        public List<TaskResponseDTO> getAllTasks() {
+            return taskService.getAllTasks();
+        }
 
     @GetMapping("/id/{id}")
     public TaskResponseDTO getTaskById(@Valid @PathVariable Long id) {
@@ -28,7 +30,7 @@ public class TaskController {
     }
 
     @GetMapping("/status")
-    public List<TaskResponseDTO> getTaskByStatus(@Valid @RequestParam Task.Status status) {
+    public List<TaskResponseDTO> getTaskByStatus(@Valid @RequestParam Status status) {
         return taskService.getTaskByStatus(status);
     }
 
@@ -38,12 +40,12 @@ public class TaskController {
     }
 
     @PostMapping("/list")
-    public List<Task> createTaskList(@Valid @RequestBody List<TaskCreateDTO> tasks) {
+    public List<TaskResponseDTO> createTaskList(@Valid @RequestBody List<TaskCreateDTO> tasks) {
         return taskService.createTaskList(tasks);
     }
 
     @PutMapping("/{id}")
-    public TaskResponseDTO putTaskById(@PathVariable Long id, @Valid @RequestBody TaskCreateDTO task){
+    public TaskResponseDTO putTaskById(@PathVariable Long id, @Valid @RequestBody TaskUpdateDTO task){
         return taskService.putTaskById(id, task);
     }
 
