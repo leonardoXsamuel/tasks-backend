@@ -6,22 +6,12 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @Entity(name = "tasks_table")
 public class Task {
-
-    public Task(String nome, LocalDate datadataConclusa, String descricao, Status status) {
-        this.nome = nome;
-        this.dataConclusao = dataConclusao;
-        this.descricao = descricao;
-        this.status = status;
-        this.dataCriacao = LocalDateTime.now();
-    }
 
     public Task() {
     }
@@ -49,8 +39,4 @@ public class Task {
     @NotNull(message = "O status deve ser: PENDENTE, CONCLUIDA ou ATRASADA.")
     @Enumerated(EnumType.STRING)
     private Status status;
-
-    public enum Status {
-        PENDENTE, CONCLUIDA, ATRASADA;
-    }
 }
