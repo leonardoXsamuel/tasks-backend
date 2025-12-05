@@ -8,16 +8,13 @@ Este documento registra, de forma informal, todas as minhas alterações e melho
 ---
 
 ## 📘 Sobre o Projeto
-O **TASKS** é um sistema simples de gerenciamento de tarefas (To-Do), desenvolvido em Java com foco em:
+É um sistema simples de gerenciamento de tarefas (To-Do), desenvolvido em Java com foco em:
 - CRUD de tarefas  
-- Validações  
-- Camadas bem definidas (Controller, Service, Repository)  
-- Uso de banco de dados relacional  
+- Validações
+- Uso de banco de dados relacional 
 - Tratamento de exceções  
 - API REST padronizada
-
-Este projeto serve como base para práticas de arquitetura limpa e organização de projetos Spring Boot.
-
+  
 ---
 
 ## 🛠️ Tecnologias Utilizadas
@@ -54,3 +51,9 @@ Este projeto serve como base para práticas de arquitetura limpa e organização
   - GlobalExceptionHandler  
   - JSON de erro padronizado  
 - Controller ajustado para usar o **TaskService** em vez do repositório diretamente.
+
+---
+
+## 🗓️ 29/11/2025 — Adicionando DTOs e ajustando entidades
+- Adicionei a camada de DTOs à aplicação (TaskCreateDTO, TaskUpdateDTO e TaskResponseDTO) para controlar melhor entrada e saída da API.
+- Implementei novas colunas dataCriacao e dataConclusao na entidade de tarefas.
