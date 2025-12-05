@@ -57,3 +57,8 @@ Este documento registra, de forma informal, todas as minhas alterações e melho
 ## 🗓️ 29/11/2025 — Adicionando DTOs e ajustando entidades
 - Adicionei a camada de DTOs à aplicação (TaskCreateDTO, TaskUpdateDTO e TaskResponseDTO) para controlar melhor entrada e saída da API.
 - Implementei novas colunas dataCriacao e dataConclusao na entidade de tarefas.
+
+---
+
+## 🗓️ 05/12/2025 — Fluxo da API (antes e depois)
+![Fluxo antes e depois](images/TKP_fluxo_antesEdepois_excalidraw.png)
