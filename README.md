@@ -4,6 +4,7 @@
 Este documento registra, de forma informal, todas as minhas alterações e melhorias feitas no projeto **TASKS**, com foco em refatoração, organização e boas práticas.
 
 🔗 **Repositório original:** https://github.com/wcaquinocursos/tasks-backend
+
 🔗 **LinkedIn Post:** https://www.linkedin.com/posts/leonardo-samuel_refatorei-um-c%C3%B3digo-de-5-anos-atr%C3%A1s-nos-activity-7404160381323124737-Cnd-?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFcqRXgBRQWF0qbKr_33kRj6Mc5ZdABq8tg
 
 ---
