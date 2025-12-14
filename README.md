@@ -1,26 +1,25 @@
-# 📌 Diário de Contribuição — Projeto TASKS
+# Diário de Contribuição — Projeto TASKS
 
 **Início: 15/11/2025**  
 Este documento registra, de forma informal, todas as minhas alterações e melhorias feitas no projeto **TASKS**, com foco em refatoração, organização e boas práticas.
 
 🔗 **Repositório original:** https://github.com/wcaquinocursos/tasks-backend
 
+🔗 **LinkedIn Post:** https://www.linkedin.com/posts/leonardo-samuel_refatorei-um-c%C3%B3digo-de-5-anos-atr%C3%A1s-nos-activity-7404160381323124737-Cnd-?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFcqRXgBRQWF0qbKr_33kRj6Mc5ZdABq8tg
+
 ---
 
-## 📘 Sobre o Projeto
-O **TASKS** é um sistema simples de gerenciamento de tarefas (To-Do), desenvolvido em Java com foco em:
+## Sobre o Projeto
+É um sistema simples de gerenciamento de tarefas (To-Do), desenvolvido em Java com foco em:
 - CRUD de tarefas  
-- Validações  
-- Camadas bem definidas (Controller, Service, Repository)  
-- Uso de banco de dados relacional  
+- Validações
+- Uso de banco de dados relacional 
 - Tratamento de exceções  
 - API REST padronizada
-
-Este projeto serve como base para práticas de arquitetura limpa e organização de projetos Spring Boot.
-
+  
 ---
 
-## 🛠️ Tecnologias Utilizadas
+## Tecnologias Utilizadas
 
 - **Java 21**  
 - **Spring Boot**  
@@ -33,7 +32,7 @@ Este projeto serve como base para práticas de arquitetura limpa e organização
 
 ---
 
-## 🗓️ 15/11/2025 — Primeiras melhorias
+## 15/11/2025 — Primeiras melhorias
 - Projeto não possuía README → criado README inicial.  
 - No **Model**:  
   - Adicionado `@Getter` e `@Setter` do Lombok.  
@@ -43,14 +42,25 @@ Este projeto serve como base para práticas de arquitetura limpa e organização
 
 ---
 
-## 🗓️ 16/11/2025 — Camada Service
+## 16/11/2025 — Camada Service
 - Criada a **camada Service** para organização das regras de negócio.
 
 ---
 
-## 🗓️ 17/11/2025 — Exceptions e melhorias no Controller
+## 17/11/2025 — Exceptions e melhorias no Controller
 - Adicionados:  
   - Exceção customizada  
   - GlobalExceptionHandler  
   - JSON de erro padronizado  
 - Controller ajustado para usar o **TaskService** em vez do repositório diretamente.
+
+---
+
+## 29/11/2025 — Adicionando DTOs e ajustando entidades
+- Adicionei a camada de DTOs à aplicação (TaskCreateDTO, TaskUpdateDTO e TaskResponseDTO) para controlar melhor entrada e saída da API.
+- Implementei novas colunas dataCriacao e dataConclusao na entidade de tarefas.
+
+---
+
+## 05/12/2025 — Fluxo da API (antes e depois)
+![Fluxo antes e depois](images/TKP_fluxo_antesEdepois_excalidraw.png)
