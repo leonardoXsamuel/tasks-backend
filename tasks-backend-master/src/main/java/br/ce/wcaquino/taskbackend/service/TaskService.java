@@ -44,7 +44,6 @@ public class TaskService {
             t.setNome(dto.nome());
             return t;
         }).toList();
-
         List<Task> taskList = taskRepo.saveAll(tasks);
 
         return taskList.stream()
