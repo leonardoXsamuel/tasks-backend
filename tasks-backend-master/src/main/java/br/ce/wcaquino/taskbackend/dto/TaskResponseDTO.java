@@ -11,5 +11,4 @@ public record TaskResponseDTO(String nome, LocalDateTime dataConclusao, String d
         this(task.getNome(), task.getDataConclusao(), task.getDescricao(), task.getStatus());
     }
 
-
 }
