@@ -1,18 +1,17 @@
 package br.ce.wcaquino.taskbackend.controller;
 
-import java.util.List;
-
 import br.ce.wcaquino.taskbackend.dto.TaskCreateDTO;
 import br.ce.wcaquino.taskbackend.dto.TaskResponseDTO;
 import br.ce.wcaquino.taskbackend.dto.TaskUpdateDTO;
 import br.ce.wcaquino.taskbackend.model.Status;
 import br.ce.wcaquino.taskbackend.service.TaskService;
 import jakarta.validation.Valid;
-import jdk.incubator.vector.VectorOperators;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import br.ce.wcaquino.taskbackend.model.Task;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/tasks")
@@ -29,13 +28,13 @@ public class TaskController {
         return ResponseEntity.ok(taskService.getAllTasks());
     }
 
-    @GetMapping("/id/{id}")
-    public ResponseEntity<TaskResponseDTO> getTaskById(@Valid @PathVariable Long id) {
+    @GetMapping("{id}")
+    public ResponseEntity<TaskResponseDTO> getTaskById(@PathVariable Long id) {
         return ResponseEntity.ok(taskService.getTaskById(id));
     }
 
     @GetMapping("/status")
-    public ResponseEntity<List<TaskResponseDTO>> getTaskByStatus(@Valid @RequestParam Status status) {
+    public ResponseEntity<List<TaskResponseDTO>> getTaskByStatus(@RequestParam Status status) {
         return ResponseEntity.ok(taskService.getTaskByStatus(status));
     }
 
@@ -50,7 +49,7 @@ public class TaskController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TaskResponseDTO> putTaskById(@PathVariable Long id, @Valid @RequestBody TaskUpdateDTO task) {
+    public ResponseEntity<TaskResponseDTO> updateTaskById(@PathVariable Long id, @Valid @RequestBody TaskUpdateDTO task) {
         return ResponseEntity.ok(taskService.putTaskById(id, task));
     }
 

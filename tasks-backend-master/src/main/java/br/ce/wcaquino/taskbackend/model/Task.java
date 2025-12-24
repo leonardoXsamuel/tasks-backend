@@ -1,5 +1,6 @@
 package br.ce.wcaquino.taskbackend.model;
 
+import br.ce.wcaquino.taskbackend.dto.TaskCreateDTO;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotBlank;
@@ -10,10 +11,18 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
+@Table(name = "tasks_table")
 @Entity(name = "tasks_table")
 public class Task {
 
     public Task() {
+    }
+
+    public Task(TaskCreateDTO dto) {
+        this.nome = dto.nome();
+        this.status = dto.status();
+        this.dataConclusao = dto.dataConclusao();
+        this.descricao = dto.descricao();
     }
 
     @Id
@@ -39,4 +48,5 @@ public class Task {
     @NotNull(message = "O status deve ser: PENDENTE, CONCLUIDA ou ATRASADA.")
     @Enumerated(EnumType.STRING)
     private Status status;
+
 }
