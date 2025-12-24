@@ -1,8 +1,8 @@
 package br.ce.wcaquino.taskbackend.repo;
 
 import br.ce.wcaquino.taskbackend.model.Status;
-import org.springframework.data.jpa.repository.JpaRepository;
 import br.ce.wcaquino.taskbackend.model.Task;
+import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface TaskRepo extends JpaRepository<Task, Long> {

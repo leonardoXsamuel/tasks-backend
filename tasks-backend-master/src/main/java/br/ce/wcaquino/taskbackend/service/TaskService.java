@@ -6,6 +6,7 @@ import br.ce.wcaquino.taskbackend.dto.TaskResponseDTO;
 import br.ce.wcaquino.taskbackend.dto.TaskUpdateDTO;
 import br.ce.wcaquino.taskbackend.model.Status;
 import br.ce.wcaquino.taskbackend.model.Task;
+import br.ce.wcaquino.taskbackend.model.ValidadorNullTask;
 import br.ce.wcaquino.taskbackend.repo.TaskRepo;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -18,11 +19,16 @@ public class TaskService {
 
     private final TaskRepo taskRepo;
 
-    public TaskService(TaskRepo taskRepo) {
+    public TaskService(TaskRepo taskRepo, ValidadorNullTask validadorNullTask) {
         this.taskRepo = taskRepo;
+        this.validadorNullTask = validadorNullTask;
     }
 
+    private final ValidadorNullTask validadorNullTask;
+
     public TaskResponseDTO createTask(TaskCreateDTO dto) {
+
+        validadorNullTask.validar(dto);
 
         Task task = new Task();
         task.setNome(dto.nome());
@@ -37,6 +43,7 @@ public class TaskService {
     public List<TaskResponseDTO> createTaskList(List<TaskCreateDTO> listDTOs) {
 
         List<Task> tasks = listDTOs.stream().map(dto -> {
+            validadorNullTask.validar(dto);
             Task t = new Task();
             t.setDataConclusao(dto.dataConclusao());
             t.setStatus(dto.status());
