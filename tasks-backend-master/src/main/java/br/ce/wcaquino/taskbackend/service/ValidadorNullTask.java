@@ -1,23 +1,24 @@
 package br.ce.wcaquino.taskbackend.service;
 
 import br.ce.wcaquino.taskbackend.dto.TaskCreateDTO;
+import br.ce.wcaquino.taskbackend.model.Status;
 
 import java.time.LocalDateTime;
 
 public class ValidadorNullTask {
 
-    public void validarCampos(TaskCreateDTO dto) {
+    public void validarCampos(String nome, String descricao, LocalDateTime dataConclusao, Status status) {
 
-        if (dto.nome() == null || dto.nome().isBlank()) {
+        if (nome == null || nome.isBlank()) {
             throw new IllegalArgumentException("Nome é obrigatório");
         }
-        if (dto.descricao() == null || dto.descricao().isBlank()) {
+        if (descricao == null || descricao.isBlank()) {
             throw new IllegalArgumentException("Descrição é obrigatória");
         }
-        if (dto.dataConclusao() == null || dto.dataConclusao().isBefore(LocalDateTime.now())) {
+        if (dataConclusao == null || dataConclusao.isBefore(LocalDateTime.now().minusMinutes(2))) {
             throw new IllegalArgumentException("Data inválida");
         }
-        if (dto.status() == null) {
+        if (status == null) {
             throw new IllegalArgumentException("Status inválido");
         }
 
