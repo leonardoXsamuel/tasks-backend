@@ -1,4 +1,4 @@
-package br.ce.wcaquino.taskbackend.model;
+package br.ce.wcaquino.taskbackend.service;
 
 import br.ce.wcaquino.taskbackend.dto.TaskCreateDTO;
 
@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 public class ValidadorNullTask {
 
-    public void validar(TaskCreateDTO dto) {
+    public void validarCampos(TaskCreateDTO dto) {
 
         if (dto.nome() == null || dto.nome().isBlank()) {
             throw new IllegalArgumentException("Nome é obrigatório");
