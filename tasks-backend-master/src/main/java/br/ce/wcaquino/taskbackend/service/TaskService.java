@@ -17,17 +17,16 @@ import java.util.List;
 public class TaskService {
 
     private final TaskRepo taskRepo;
+    private final ValidadorNullTask validadorNullTask;
 
     public TaskService(TaskRepo taskRepo, ValidadorNullTask validadorNullTask) {
         this.taskRepo = taskRepo;
         this.validadorNullTask = validadorNullTask;
     }
 
-    private final ValidadorNullTask validadorNullTask;
-
     public TaskResponseDTO createTask(TaskCreateDTO dto) {
 
-        validadorNullTask.validarCampos(dto);
+        validadorNullTask.validarCampos(dto.nome(), dto.descricao(), dto.dataConclusao(), dto.status());
 
         Task task = new Task();
         task.setNome(dto.nome());
@@ -42,7 +41,7 @@ public class TaskService {
     public List<TaskResponseDTO> createTaskList(List<TaskCreateDTO> listDTOs) {
 
         List<Task> tasks = listDTOs.stream().map(dto -> {
-            validadorNullTask.validarCampos(dto);
+            validadorNullTask.validarCampos(dto.nome(), dto.descricao(), dto.dataConclusao(), dto.status());
             Task t = new Task();
             t.setDataConclusao(dto.dataConclusao());
             t.setStatus(dto.status());
@@ -106,6 +105,12 @@ public class TaskService {
                 })
                 .orElseThrow(() -> (new TaskNotFoundException("tarefa não localizada.")));
 
+        validadorNullTask.validarCampos(oldTask.getNome(),
+                oldTask.getDescricao(),
+                oldTask.getDataConclusao(),
+                oldTask.getStatus()
+        );
+
         Task taskSalva = taskRepo.save(oldTask);
         return new TaskResponseDTO(taskSalva);
     }
@@ -113,9 +118,10 @@ public class TaskService {
     @Transactional
     public void deleteTaskById(Long id) {
 
-        Task oldTask = taskRepo.findById(id)
-                .orElseThrow(() -> (new TaskNotFoundException("tarefa não localizada.")));
-
+        if (!taskRepo.existsById(id)) {
+            throw new TaskNotFoundException("tarefa não localizada.");
+        }
         taskRepo.deleteById(id);
+
     }
 }
