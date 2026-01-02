@@ -24,4 +24,16 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorJsonReturn);
     }
 
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ErrorJsonReturn> HandlerIllegalArgumentException(IllegalArgumentException ex, HttpServletRequest hsr) {
+        ErrorJsonReturn errorJsonReturn = new ErrorJsonReturn(
+                HttpStatus.NOT_FOUND,
+                HttpStatus.NOT_FOUND.getReasonPhrase(),
+                LocalDateTime.now(),
+                ex.getMessage(),
+                hsr.getRequestURI());
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorJsonReturn);
+    }
+
 }
