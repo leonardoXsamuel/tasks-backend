@@ -1,10 +1,11 @@
 package br.ce.wcaquino.taskbackend.service;
 
-import br.ce.wcaquino.taskbackend.dto.TaskCreateDTO;
 import br.ce.wcaquino.taskbackend.model.Status;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 
+@Component
 public class ValidadorNullTask {
 
     public void validarCampos(String nome, String descricao, LocalDateTime dataConclusao, Status status) {
