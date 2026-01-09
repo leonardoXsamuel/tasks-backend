@@ -64,3 +64,8 @@ Este documento registra, de forma informal, todas as minhas alterações e melho
 
 ## 05/12/2025 — Fluxo da API (antes e depois)
 ![Fluxo antes e depois](images/TKP_fluxo_antesEdepois_excalidraw.png)
+
+---
+
+## 01/01/2026 — Testes Unitários adicionados
+- Realizei a inserrção de testes unitarios dos metodos de service, métodos validadores e controller,
